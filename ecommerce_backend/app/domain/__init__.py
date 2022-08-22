@@ -1,1 +1,1 @@
-__all__=["entidades"]
+__all__=['entidades','vos']
