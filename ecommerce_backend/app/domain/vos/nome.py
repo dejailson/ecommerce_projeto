@@ -1,16 +1,23 @@
 from dataclasses import dataclass, field
-from ...core.decoradores.validadores import Validador
+from typing import Union
+from app.core.decoradores.validadores import Validador
+from app.core.erro import Either
+from app.core.decoradores.validadores.erros import NaoNuloValidadorErro
 
 
-@dataclass(frozen=True, repr=True, eq=True, order=True)
+@dataclass(frozen=True, eq=True, order=True)
 class Nome():
     __valor: str= field(default=None,init=True)
+    erros = Union[NaoNuloValidadorErro,None]
 
     @property
     def valor(self,) -> str:
         return self.__valor
 
-    @Validador.nao_nulo_validador(mensagem = 'Nome não pode ser nulo.')
     @staticmethod
-    def criar(nome: str = None) -> 'Nome':
-        return Nome(nome)
+    @Validador.nao_nulo_validador(mensagem = 'Nome não pode ser nulo.')
+    def criar(nome: str = None) -> Either[erros,'Nome']:
+        return Either.sucesso(Nome(nome))
+
+    def __repr__(self):
+        return f'Nome({self.__valor})'
