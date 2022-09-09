@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Union
-from app.core.decoradores.validadores import Validador, Validador
+from app.core.decoradores.validadores import Validador
 from app.core.erro import Either
-from app.core.decoradores.validadores.erros import NaoBrancoValidadorErro
+from app.core.decoradores.validadores.erros import NaoBrancoValidadorErro,NaoNuloValidadorErro
 
 
 @dataclass(frozen=True, eq=True, order=True)
